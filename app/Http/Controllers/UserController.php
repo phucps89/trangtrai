@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -39,7 +41,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, User::rules());
-        
+
         User::create($request->all());
 
         return back()->withSuccess(trans('app.success_store'));
@@ -97,7 +99,7 @@ class UserController extends Controller
     {
         User::destroy($id);
 
-        return back()->withSuccess(trans('app.success_destroy')); 
+        return back()->withSuccess(trans('app.success_destroy'));
     }
 }
 

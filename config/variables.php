@@ -1,7 +1,7 @@
-<?php 
+<?php
 
 return [
-    
+
     'boolean' => [
         '0' => 'No',
         '1' => 'Yes',
@@ -11,7 +11,12 @@ return [
         '0' => 'User',
         '10' => 'Admin',
     ],
-    
+
+    'farm_type' => [
+        \App\Models\FarmBreedCrop::FARM_TYPE_BREED => 'Gia súc',
+        \App\Models\FarmBreedCrop::FARM_TYPE_CROP => 'Cây trồng',
+    ],
+
     'status' => [
         '1' => 'Active',
         '0' => 'Inactive',
@@ -20,7 +25,7 @@ return [
     'avatar' => [
         'public' => '/storage/avatar/',
         'folder' => 'avatar',
-        
+
         'width'  => 400,
         'height' => 400,
     ],

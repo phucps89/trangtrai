@@ -11,6 +11,7 @@ Auth::routes();
 Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware'=>['auth', 'Role:0']], function() {
     Route::get('/', 'DashboardController@index')->name('dash');
     Route::resource('users', 'UserController');
+    Route::resource('farm_breed_crop', 'FarmBreedCropController');
 });
 
 Route::get('/', function () {
