@@ -9,6 +9,7 @@
 namespace App\Models;
 
 
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,8 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $desc
  * @property boolean $type
- * @property string $created_at
- * @property string $updated_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class FarmBreedCrop extends Model
 {

@@ -1,10 +1,21 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $avatar
+ * @property string $bio
+ * @property int $role
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -59,13 +70,13 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
-    
+
     public function getAvatarAttribute($value)
     {
         if (!$value) {
             return 'http://placehold.it/160x160';
         }
-    
+
         return config('variables.avatar.public').$value;
     }
     public function setAvatarAttribute($photo)
@@ -84,7 +95,7 @@ class User extends Authenticatable
         static::updating(function($user)
         {
             $original = $user->getOriginal();
-            
+
             if (\Hash::check('', $user->password)) {
                 $user->attributes['password'] = $original['password'];
             }

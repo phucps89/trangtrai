@@ -80709,3 +80709,17 @@ img {
   height: 35px !important;
 }
 
+.dataTables_processing {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  width: 250px;
+  text-align: center;
+  font-size: 1.2em;
+  padding: 14px 0 14px 0;
+  border: 1px solid #ddd;
+  background-color: white;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), color-stop(25%, rgba(255, 255, 255, 0.9)), color-stop(75%, rgba(255, 255, 255, 0.9)), to(rgba(255, 255, 255, 0)));
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+}
+

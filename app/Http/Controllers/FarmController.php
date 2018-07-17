@@ -44,7 +44,6 @@ class FarmController extends Controller
 //                $data[] = array_values($item->toArray());
 //            }
             return [
-                'draw' => $request->get('draw'),
                 'recordsTotal' => $items->total(),
                 'recordsFiltered' => count($items->items()),
                 'data' => $items->items(),
