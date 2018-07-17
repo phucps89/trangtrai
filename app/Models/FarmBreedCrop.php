@@ -11,6 +11,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $desc
+ * @property boolean $type
+ * @property string $created_at
+ * @property string $updated_at
+ */
 class FarmBreedCrop extends Model
 {
     const FARM_TYPE_BREED = 1;
@@ -18,11 +26,7 @@ class FarmBreedCrop extends Model
 
     protected $table = 'farm_breed_crop';
 
-    protected $fillable = [
-        'name',
-        'desc',
-        'type',
-    ];
+    protected $fillable = ['name', 'desc', 'type', 'created_at', 'updated_at'];
 
     public static function rules($update = false, $id = null)
     {

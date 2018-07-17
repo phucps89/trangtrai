@@ -11,8 +11,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-	<link href="{{ mix('/css/app.css') }}" rel="stylesheet"> 
-	
+	<link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+
 	@yield('css')
 
 </head>
@@ -37,7 +37,7 @@
 
                         <h4 class="c-grey-900 mT-10 mB-30">@yield('page-header')</h4>
 
-						@include('admin.partials.messages') 
+						@include('admin.partials.messages')
 						@yield('content')
 
                     </div>
@@ -53,6 +53,7 @@
     </div>
 
     <script src="{{ mix('/js/app.js') }}"></script>
+    <script src="{{ mix('/js/app-custom.js') }}"></script>
 
     @yield('js')
 

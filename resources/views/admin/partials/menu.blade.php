@@ -22,3 +22,11 @@
         <span class="title">Loại chăn nuôi & trồng trọt</span>
     </a>
 </li>
+<li class="nav-item">
+    <a class='sidebar-link' href="{{ route(ADMIN . '.farm.index') }}" >
+        <span class="icon-holder">
+            <i class="c-brown-500 ti-book"></i>
+        </span>
+        <span class="title">Chuồng trại</span>
+    </a>
+</li>
