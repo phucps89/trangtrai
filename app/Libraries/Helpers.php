@@ -28,22 +28,6 @@ class Helpers
         return $timezone;
     }
 
-    public static function formatPaginationDataTable(LengthAwarePaginator $data)
-    {
-        $length = $data->perPage();
-        $totalRecord = $data->total();
-
-        $result = [
-            'page'         => $data->currentPage(),
-            'length'       => $length,
-            'total_record' => $totalRecord,
-            'total_page'   => ceil($totalRecord / $length),
-            'rows'         => $data->items()
-        ];
-
-        return $result;
-    }
-
     public static function checkMXRecord($email)
     {
         $domain = explode('@', $email);
@@ -586,5 +570,9 @@ class Helpers
             . $info['filename']
             . '.'
             . $new_extension;
+    }
+
+    public static function formatPaginationDataTable(LengthAwarePaginator $paginator){
+
     }
 }
