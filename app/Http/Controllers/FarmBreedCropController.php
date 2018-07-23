@@ -21,7 +21,7 @@ class FarmBreedCropController extends Controller
     private $_farmBreedCropRepository;
 
     /**
-     * FarmBreedCropController constructor.
+     * @param FarmBreedCropRepository $farmBreedCropRepository
      */
     public function __construct(FarmBreedCropRepository $farmBreedCropRepository)
     {
@@ -36,6 +36,18 @@ class FarmBreedCropController extends Controller
      */
     public function index()
     {
+        $request = Request::capture();
+        if($request->ajax()){
+            $type = $request->get('type');
+            $query = $this->_farmBreedCropRepository->makeModel()->newQuery();
+            if(in_array($type, array_keys(config('variables.farm_type')))){
+                $query->where('type', $type);
+            }
+            return $query->get([
+                'id', 'name'
+            ]);
+        }
+
         $items = $this->_farmBreedCropRepository->makeModel()->newQuery()->latest('updated_at')->get();
 
         return view('admin.farm_breed_crop.index', compact('items'));

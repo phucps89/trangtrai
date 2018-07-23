@@ -573,6 +573,21 @@ class Helpers
     }
 
     public static function formatPaginationDataTable(LengthAwarePaginator $paginator){
+        return [
+            'recordsTotal' => $paginator->total(),
+            'recordsFiltered' => count($paginator->items()),
+            'data' => $paginator->items(),
+        ];
+    }
 
+    public static function formatMappingDatatable($arrayKey){
+        $result = [];
+        foreach ($arrayKey as $key => $item) {
+            $result[] = [
+                'targets' => $key,
+                'data' => $item,
+            ];
+        }
+        return json_encode($result);
     }
 }

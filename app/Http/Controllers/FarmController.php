@@ -9,6 +9,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Libraries\Helpers;
+use App\Models\Farm;
 use App\Repositories\FarmRepository;
 use Illuminate\Http\Request;
 
@@ -20,7 +22,7 @@ class FarmController extends Controller
     private $_farmRepository;
 
     /**
-     * FarmBreedCropController constructor.
+     * @param FarmRepository $farmRepository
      */
     public function __construct(FarmRepository $farmRepository)
     {
@@ -38,21 +40,29 @@ class FarmController extends Controller
         $request = Request::capture();
         $isAjax = $request->get('ajax', 0);
         if($isAjax == 1){
-            $items = $this->_farmRepository->makeModel()->newQuery()->latest('updated_at')->paginate();
-//            $data = [];
-//            foreach ($items->items() as $item) {
-//                $data[] = array_values($item->toArray());
-//            }
-            return [
-                'recordsTotal' => $items->total(),
-                'recordsFiltered' => count($items->items()),
-                'data' => $items->items(),
-                'all' => $request->all()
-            ];
+            $items = $this->_farmRepository->makeModel()->newQuery()
+                ->leftJoin('farm_breed_crop', 'farm_breed_crop.id', '=', 'farms.farm_breed_crop_id')
+                ->select([
+                    'farms.*',
+                    'farm_breed_crop.name as breed_crop_name'
+                ])
+                ->latest('updated_at')->paginate($request->get('length'));
+            foreach ($items->items() as $item) {
+                $item->type_name = config('variables.farm_type')[$item->type];
+                $item->action = view('admin.action', [
+                    'routeEdit' => route(ADMIN . '.farm.edit', $item->id),
+                    'routeDelete' => route(ADMIN . '.farm.destroy', $item->id),
+                ])->render();
+            }
+            return Helpers::formatPaginationDataTable($items);
         }
 
 
-        return view('admin.farm.index');
+        return view('admin.farm.index', [
+            'mappingKey' => [
+                'name', 'code', 'address', 'desc', 'type_name', 'breed_crop_name', 'action'
+            ]
+        ]);
     }
 
     /**
@@ -62,7 +72,7 @@ class FarmController extends Controller
      */
     public function create()
     {
-        return view('admin.farm_breed_crop.create');
+        return view('admin.farm.create');
     }
 
     /**
@@ -73,11 +83,19 @@ class FarmController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, FarmBreedCrop::rules());
+        $this->validate($request, Farm::rules());
 
-        $this->_farmBreedCropRepository->create($request->all());
+        $user = Helpers::getAuth();
 
-        return redirect()->route('admin.farm_breed_crop.index')->withSuccess(trans('app.success_store'));
+        $this->_farmRepository->create(array_merge(
+            $request->all(),
+            [
+                'created_by' => $user->id,
+                'updated_by' => $user->id,
+            ]
+        ));
+
+        return redirect()->route('admin.farm.index')->withSuccess(trans('app.success_store'));
     }
 
     /**
@@ -99,9 +117,9 @@ class FarmController extends Controller
      */
     public function edit($id)
     {
-        $item = $this->_farmBreedCropRepository->find($id);
+        $item = $this->_farmRepository->find($id);
 
-        return view('admin.farm_breed_crop.edit', compact('item'));
+        return view('admin.farm.edit', compact('item'));
     }
 
     /**
@@ -113,13 +131,13 @@ class FarmController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, FarmBreedCrop::rules(true, $id));
+        $this->validate($request, Farm::rules(true, $id));
 
-        $item = $this->_farmBreedCropRepository->find($id);
+        $item = $this->_farmRepository->find($id);
 
         $item->update($request->all());
 
-        return redirect()->route(ADMIN . '.farm_breed_crop.index')->withSuccess(trans('app.success_update'));
+        return redirect()->route(ADMIN . '.farm.index')->withSuccess(trans('app.success_update'));
     }
 
     /**
@@ -130,7 +148,7 @@ class FarmController extends Controller
      */
     public function destroy($id)
     {
-        $this->_farmBreedCropRepository->delete($id);
+        $this->_farmRepository->delete($id);
 
         return back()->withSuccess(trans('app.success_destroy'));
     }

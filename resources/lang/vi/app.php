@@ -26,7 +26,8 @@ return [
 	"reset_password"     => "Reset Password",
 	"reset_password_btn" => "Send reset link",
 	"connect"            => "Loggin",
-
+    "status_new"    => "Khởi tạo",
+    "breed_crop_status_imported"    => "Nhập chuồng",
 
 
 ];

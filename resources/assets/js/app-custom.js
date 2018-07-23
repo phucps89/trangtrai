@@ -11,14 +11,6 @@ export default (function () {
                 "dataType": "json",
             },
             "columnDefs": $(this).data('column-defs'),
-            // "columns": [
-            //     { data: 'name', name: 'name' },
-            //     { data: 'name', name: 'name' },
-            //     { data: 'name', name: 'name' },
-            //     { data: 'name', name: 'name' },
-            //     { data: 'name', name: 'name' },
-            //     { data: 'name', name: 'name' },
-            // ]
         } );
     });
 }());

@@ -5,7 +5,7 @@ Form::macro('myInput', function($type="text", $name, $label="", $options=[], $de
     $label = ($label =='') ? '' : html_entity_decode(Form::label($name, $label));
     return "
         <div class='form-group'>
-            ". $label . 
+            ". $label .
               Form::input($type, $name, $default, array_merge(["class" => "form-control"], $options)). "
         </div>
     ";
@@ -16,7 +16,7 @@ Form::macro('mySelect', function($name, $label="", $values=[], $selected=null, $
     $label = ($label =='') ? '' : html_entity_decode(Form::label($name, $label));
     return "
         <div class='form-group'>
-            ". $label . 
+            ". $label .
               Form::select($name, $values, $selected,array_merge(["class" => "form-control"], $options)). "
         </div>
     ";
@@ -27,7 +27,7 @@ Form::macro('myFile', function($name, $label="", $options=[])
     $label = ($label =='') ? '' : html_entity_decode(Form::label($name, $label));
     return "
         <div class='form-group'>
-            ". $label . 
+            ". $label .
               Form::file($name, array_merge(["class" => "form-control"], $options)). "
         </div>
     ";
@@ -38,7 +38,7 @@ Form::macro('myTextArea', function($name, $label="", $options=[], $default = nul
     $label = ($label =='') ? '' : html_entity_decode(Form::label($name, $label));
     return "
         <div class='form-group'>
-            ". $label . 
+            ". $label .
               Form::textarea($name, $default, array_merge(["class" => "form-control", "rows"=> 3], $options)). "
         </div>
     ";
@@ -48,9 +48,14 @@ Form::macro('myCheckbox', function($name, $label="", $value='', $checked='', $op
 {
     // $label = ($label =='') ? '' : html_entity_decode(Form::label($name, $label));
     return "
-        <div class='checkbox'>
-            <label>" . 
-                Form::checkbox($name, $value, $checked, $options) . $label . "
+        <div class='checkbox checkbox-circle checkbox-info peers ai-c mB-15'>
+            " .
+                Form::checkbox($name, $value, $checked, array_merge($options, [
+                    'id' => $name
+                ])) .
+        "<label
+                    for='{$name}' class='peers peer-greed js-sb ai-c'><span class='peer peer-greed'>{$label}</span></label>"
+        . "
             </label>
         </div>
     ";

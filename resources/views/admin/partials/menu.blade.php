@@ -30,3 +30,15 @@
         <span class="title">Chuồng trại</span>
     </a>
 </li>
+
+<li class="nav-item dropdown">
+    <a class="dropdown-toggle" href="javascript:void(0);">
+        <span class="icon-holder"><i
+                class="c-teal-500 ti-view-list-alt"></i> </span>
+        <span class="title">Gia súc & cây trồng</span>
+        <span class="arrow"><i class="ti-angle-right"></i></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="nav-item dropdown"><a href="{{ route(ADMIN . '.breed_crop.index') }}"><span>Danh sách cá thể</span></a></li>
+    </ul>
+</li>

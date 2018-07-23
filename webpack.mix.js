@@ -24,6 +24,12 @@ mix.webpackConfig(webpack => {
     };
 });
 
+mix.autoload({
+    jQuery: 'jquery',
+    $: 'jquery',
+    jquery: 'jquery'
+});
+
 
 mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/app-custom.js', 'public/js')

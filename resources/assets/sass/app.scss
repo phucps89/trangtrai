@@ -3,6 +3,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import 'spec/index';
 @import 'vendor/index';
+@import '~jquery-datetimepicker/jquery.datetimepicker.css';
 
 #loader {
     transition: all 0.3s ease-in-out;
@@ -107,4 +108,8 @@ img {
     background: -ms-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 25%, rgba(255,255,255,0.9) 75%, rgba(255,255,255,0) 100%);
     background: -o-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 25%, rgba(255,255,255,0.9) 75%, rgba(255,255,255,0) 100%);
     background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 25%, rgba(255,255,255,0.9) 75%, rgba(255,255,255,0) 100%);
+}
+
+.error{
+    color: red;
 }
