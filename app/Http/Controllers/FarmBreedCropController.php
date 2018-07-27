@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Libraries\Helpers;
 use App\Models\FarmBreedCrop;
 use App\Repositories\FarmBreedCropRepository;
 use Illuminate\Http\Request;
@@ -37,20 +38,31 @@ class FarmBreedCropController extends Controller
     public function index()
     {
         $request = Request::capture();
-        if($request->ajax()){
+        $isAjax = $request->get('ajax', 0);
+        if($isAjax == 1){
             $type = $request->get('type');
             $query = $this->_farmBreedCropRepository->makeModel()->newQuery();
             if(in_array($type, array_keys(config('variables.farm_type')))){
                 $query->where('type', $type);
             }
-            return $query->get([
-                'id', 'name'
-            ]);
+            $items = $query->latest('updated_at')->paginate($request->get('length'));
+            foreach ($items->items() as $item) {
+                $item->type_name = Helpers::get(config('variables.farm_type'), $item->type);
+                $item->action = view('admin.action', [
+                    'routeEdit' => route(ADMIN . '.farm_breed_crop.edit', $item->id),
+                    'routeDelete' => route(ADMIN . '.farm_breed_crop.destroy', $item->id),
+                ])->render();
+            }
+            return Helpers::formatPaginationDataTable($items);
         }
 
-        $items = $this->_farmBreedCropRepository->makeModel()->newQuery()->latest('updated_at')->get();
+        //$items = $this->_farmBreedCropRepository->makeModel()->newQuery()->latest('updated_at')->get();
 
-        return view('admin.farm_breed_crop.index', compact('items'));
+        return view('admin.farm_breed_crop.index',[
+            'mappingKey' => [
+                'name', 'desc', 'type_name', 'action'
+            ]
+        ]);
     }
 
     /**

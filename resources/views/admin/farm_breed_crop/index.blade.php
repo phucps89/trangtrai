@@ -14,7 +14,7 @@
 
 
     <div class="bgc-white bd bdrs-3 p-20 mB-20">
-        <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <table data-column-defs="{{\App\Libraries\Helpers::formatMappingDatatable($mappingKey)}}" data-url="{{route(ADMIN . '.farm_breed_crop.index', ['ajax'=>1])}}" id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
             <tr>
                 <th>Tên</th>
@@ -32,27 +32,6 @@
                 <th>Action</th>
             </tr>
             </tfoot>
-
-            <tbody>
-            @foreach ($items as $item)
-                <tr>
-                    <td><a href="{{ route(ADMIN . '.farm_breed_crop.edit', $item->id) }}">{{ $item->name }}</a></td>
-                    <td>{{ $item->desc }}</td>
-                    <td>
-                        @if($item->type == \App\Models\FarmBreedCrop::FARM_TYPE_BREED)
-                            <span class="badge badge-pill badge-success lh-0 p-10">Gia súc</span>
-                        @elseif($item->type == \App\Models\FarmBreedCrop::FARM_TYPE_CROP)
-                            <span class="badge badge-pill badge-info lh-0 p-10">Cây trồng</span>
-                        @else
-                            <span class="badge badge-pill badge-warning lh-0 p-10">Undefined</span>
-                        @endif
-                    </td>
-                    <td>
-
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
 
         </table>
     </div>
